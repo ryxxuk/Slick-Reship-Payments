@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "token": "",
+  "stripe_private_key": "",
+  "db_connection": "",
+
+  "prefixes": [ "~" ],
+  "join_message": "",
+  "currently": "playing",
+  "playing_status": "Open a ticket for support",
+  "status": "online",
+
+  "log_channel": "784234255844376576",
+
+  "non_premium_commission": 0.20,
+  "stripe_percent_fee": 0.04
+}
