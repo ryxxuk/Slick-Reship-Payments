@@ -1,0 +1,74 @@
+07:25:53 [Info] Discord: Discord.Net v3.0.0-dev-20211126.8 (API v9)
+07:25:53 [Warning] Gateway: You're using the GuildScheduledEvents gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:25:53 [Warning] Gateway: You're using the GuildInvites gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:26:16 [Info] Gateway: Connecting
+07:26:16 [Verbose] Rest: GET gateway: 193.52 ms
+07:26:17 [Info] Gateway: Connected
+07:26:17 [Verbose] Gateway: Connected to Slick Reship
+07:26:18 [Info] Gateway: Ready
+07:26:23 [Warning] Gateway: Failed to resume previous session
+07:26:23 [Verbose] Gateway: Connected to Slick Reship
+07:26:23 [Info] Gateway: Ready
+07:26:24 [Verbose] Rest: POST channels/895781845860503593/messages: 176.06 ms
+07:27:34 [Info] Discord: Discord.Net v3.0.0-dev-20211126.8 (API v9)
+07:27:34 [Warning] Gateway: You're using the GuildScheduledEvents gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:27:34 [Warning] Gateway: You're using the GuildInvites gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:27:57 [Info] Discord: Discord.Net v3.0.0-dev-20211126.8 (API v9)
+07:27:57 [Warning] Gateway: You're using the GuildScheduledEvents gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:27:57 [Warning] Gateway: You're using the GuildInvites gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:27:57 [Info] Gateway: Connecting
+07:27:57 [Verbose] Rest: GET gateway: 191.53 ms
+07:27:58 [Info] Gateway: Connected
+07:27:58 [Verbose] Gateway: Connected to Slick Reship
+07:27:59 [Info] Gateway: Ready
+07:28:03 [Warning] Gateway: Failed to resume previous session
+07:28:04 [Verbose] Gateway: Connected to Slick Reship
+07:28:04 [Info] Gateway: Ready
+07:28:23 [Verbose] Rest: POST channels/895781845860503593/messages: 228.88 ms
+07:28:43 [Verbose] Rest: POST channels/896048742522814474/messages: 355.75 ms
+07:30:14 [Info] Discord: Discord.Net v3.0.0-dev-20211126.8 (API v9)
+07:30:14 [Warning] Gateway: You're using the GuildScheduledEvents gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:30:14 [Warning] Gateway: You're using the GuildInvites gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:30:14 [Info] Gateway: Connecting
+07:30:40 [Info] Discord: Discord.Net v3.0.0-dev-20211126.8 (API v9)
+07:30:40 [Warning] Gateway: You're using the GuildScheduledEvents gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:30:40 [Warning] Gateway: You're using the GuildInvites gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:30:40 [Info] Gateway: Connecting
+07:30:42 [Verbose] Rest: GET gateway: 216.74 ms
+07:30:42 [Verbose] Rest: GET users/328237271084171264: 323.74 ms
+07:34:12 [Info] Discord: Discord.Net v3.0.0-dev-20211126.8 (API v9)
+07:34:12 [Warning] Gateway: You're using the GuildScheduledEvents gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:34:12 [Warning] Gateway: You're using the GuildInvites gateway intent without listening to any events related to that intent, consider removing the intent from your config.
+07:34:12 [Info] Gateway: Connecting
+07:34:17 [Verbose] Rest: GET gateway: 199.02 ms
+07:34:17 [Verbose] Rest: GET users/328237271084171264: 311.67 ms
+07:34:18 [Info] Gateway: Connected
+07:34:18 [Verbose] Gateway: Connected to Slick Reship
+07:34:19 [Info] Gateway: Ready
+07:34:19 [Warning] Gateway: System.Exception: WebSocket connection was closed
+ ---> Discord.Net.WebSocketClosedException: The server sent close 4003: "Not authenticated."
+   at Discord.Net.WebSockets.DefaultWebSocketClient.RunAsync(CancellationToken cancelToken)
+   --- End of inner exception stack trace ---
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+07:34:19 [Info] Gateway: Disconnecting
+07:34:19 [Verbose] Gateway: Disconnected from Slick Reship
+07:34:19 [Info] Gateway: Disconnected
+07:34:20 [Info] Gateway: Connecting
+07:34:20 [Verbose] Rest: GET gateway: 22.89 ms
+07:34:20 [Warning] Gateway: Failed to resume previous session
+07:34:23 [Warning] Gateway: Failed to resume previous session
+07:34:23 [Verbose] Rest: Preemptive Rate limit triggered: <gateway-identify> 
+07:34:26 [Info] Gateway: Connected
+07:34:26 [Verbose] Gateway: Connected to Slick Reship
+07:34:26 [Info] Gateway: Ready
+07:34:39 [Verbose] Rest: POST channels/895781845860503593/messages: 168.68 ms
+07:34:55 [Verbose] Rest: POST channels/895781845860503593/messages: 184.87 ms
+07:49:24 [Info] Discord: Discord.Net v2.4.0 (API v6)
+07:49:24 [Verbose] Rest: GET users/@me: 339.44 ms
+07:49:25 [Info] Gateway: Connecting
+07:49:25 [Verbose] Rest: GET gateway: 32 ms
+07:49:25 [Info] Gateway: Connected
+07:49:25 [Verbose] Gateway: Connected to Slick Reship
+07:49:26 [Info] Gateway: Ready
+07:49:41 [Verbose] Rest: POST channels/895781845860503593/messages: 184.33 ms
+07:49:41 [Msg] Successful command 'addstripe' executed by user: 'ryxx'.

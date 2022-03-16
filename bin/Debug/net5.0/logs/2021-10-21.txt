@@ -1,0 +1,43 @@
+06:51:28 [Info] Discord: Discord.Net v3.1.6 (API v9)
+06:51:28 [Info] Gateway: Connecting
+06:51:29 [Info] Gateway: Connected
+06:51:29 [Info] Gateway: Ready
+06:51:29 [Warning] Gateway: System.Exception: WebSocket connection was closed
+ ---> Discord.Net.WebSocketClosedException: The server sent close 4003: "Not authenticated."
+   at Discord.Net.WebSockets.DefaultWebSocketClient.RunAsync(CancellationToken cancelToken)
+   --- End of inner exception stack trace ---
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+06:51:29 [Error] Gateway: System.Exception: WebSocket connection was closed
+ ---> Discord.Net.WebSocketClosedException: The server sent close 4003: "Not authenticated."
+   at Discord.Net.WebSockets.DefaultWebSocketClient.RunAsync(CancellationToken cancelToken)
+   --- End of inner exception stack trace ---
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+06:51:29 [Info] Gateway: Disconnecting
+06:51:29 [Info] Gateway: Disconnected
+06:51:29 [Error] Gateway: System.Exception: WebSocket connection was closed
+ ---> Discord.Net.WebSocketClosedException: The server sent close 4003: "Not authenticated."
+   at Discord.Net.WebSockets.DefaultWebSocketClient.RunAsync(CancellationToken cancelToken)
+   --- End of inner exception stack trace ---
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+06:51:30 [Info] Gateway: Connecting
+06:51:31 [Warning] Gateway: Failed to resume previous session
+06:51:34 [Warning] Gateway: Failed to resume previous session
+06:56:29 [Info] Discord: Discord.Net v3.0.0-dev-20210822.1 (API v9)
+06:56:29 [Info] Gateway: Connecting
+06:56:30 [Info] Gateway: Connected
+06:56:30 [Info] Gateway: Ready
+06:57:18 [Info] Discord: Discord.Net v3.0.0-dev-20210822.1 (API v9)
+06:57:18 [Info] Gateway: Connecting
+06:57:19 [Info] Gateway: Connected
+06:57:19 [Info] Gateway: Ready
+06:57:23 [Msg] Successful command 'check' executed by user: 'ryxx'.
+06:57:51 [Info] Discord: Discord.Net v3.0.0-dev-20210822.1 (API v9)
+06:57:51 [Info] Gateway: Connecting
+06:57:52 [Info] Gateway: Connected
+06:57:52 [Info] Gateway: Ready
+06:57:57 [Msg] Successful command 'check' executed by user: 'ryxx'.
+06:59:00 [Info] Discord: Discord.Net v3.0.0-dev-20210822.1 (API v9)
+06:59:00 [Info] Gateway: Connecting
+06:59:01 [Info] Gateway: Connected
+06:59:01 [Info] Gateway: Ready
+06:59:08 [Msg] Successful command 'reship' executed by user: 'ryxx'.
