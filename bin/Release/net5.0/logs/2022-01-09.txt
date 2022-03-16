@@ -1,8 +1,0 @@
-07:06:16 [Info] Discord: Discord.Net v2.4.0 (API v6)
-07:49:42 [Info] Discord: Discord.Net v2.4.0 (API v6)
-07:49:43 [Verbose] Rest: GET users/@me: 396.16 ms
-07:49:43 [Info] Gateway: Connecting
-07:49:43 [Verbose] Rest: GET gateway: 22.75 ms
-07:49:43 [Info] Gateway: Connected
-07:49:43 [Verbose] Gateway: Connected to Slick Reship
-07:49:44 [Info] Gateway: Ready
