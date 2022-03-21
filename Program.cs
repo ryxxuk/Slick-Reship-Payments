@@ -104,12 +104,16 @@ namespace SlickReship_Payments
             switch (command.Data.Name)
             {
                 case "charge":
-                    Console.WriteLine($"{DateTime.Now} [Command] {command.User.Username} Executed /address set");
+                    Console.WriteLine($"{DateTime.Now} [Command] {command.User.Username} Executed /charge");
                     await SlashCommands.Charge(command);
                     break;
                 case "addstripe":
-                    Console.WriteLine($"{DateTime.Now} [Command] {command.User.Username} Executed /vacation");
+                    Console.WriteLine($"{DateTime.Now} [Command] {command.User.Username} Executed /addstripe");
                     await SlashCommands.AddStripe(command);
+                    break;
+                case "check":
+                    Console.WriteLine($"{DateTime.Now} [Command] {command.User.Username} Executed /check");
+                    await SlashCommands.Check(command);
                     break;
             }
         }
@@ -130,6 +134,9 @@ namespace SlickReship_Payments
                     .WithDescription("Adds a stripe account for a user")
                     .AddOption("user", ApplicationCommandOptionType.User, "The who who owns the connected account", isRequired: true)
                     .AddOption("stripeid", ApplicationCommandOptionType.String, "ID of the connected account on Stripe", isRequired: true),
+                new SlashCommandBuilder()
+                    .WithName("check")
+                    .WithDescription("Checks all payment links in this channel.")
             };
             try
             {

@@ -57,7 +57,7 @@ namespace SlickReship_Payments.Modules
 
             var transactionFee = amount / (1 - _config["stripe_percent_fee"].Value<double>()) - amount;
             transactionFee = Math.Round(transactionFee, 2) + 0;
-            var applicationFee = restCustomer.RoleIds.Any(role => role == 896053430341222420) || deliveryCost ? transactionFee : (amount * 0.19) + transactionFee;
+            var applicationFee = restCustomer.RoleIds.Any(role => role == 896053430341222420) || deliveryCost ? transactionFee : amount * _config["non_premium_commission"].Value<double>() + transactionFee;
             
             var totalCost = amount + transactionFee;
 
@@ -75,7 +75,7 @@ namespace SlickReship_Payments.Modules
             Console.WriteLine($"Created new payment link for {stripeId}, total cost:{totalCost}, fee:{applicationFee}");
         }
 
-        public async Task Check(SocketSlashCommand command)
+        public static async Task Check(SocketSlashCommand command)
         {
             var numberChecked = 0;
 
