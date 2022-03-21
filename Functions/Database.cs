@@ -1,16 +1,17 @@
 ﻿using System;
 using Discord;
-using Discord.WebSocket;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
 
 namespace SlickReship_Payments.Functions
 {
-    internal class Database
+    public static class Database
     {
+        public static JObject _config;
+
         internal static string GetStripeId(ulong id)
         {
-            var config = DiscordFunctions.GetConfig();
-            var connectionStr = config["db_connection"].ToString();
+            var connectionStr = _config["db_connection"].Value<string>(); ;
 
             using var conn = new MySqlConnection(connectionStr);
             try
@@ -37,8 +38,7 @@ namespace SlickReship_Payments.Functions
 
         public static bool AddStripeAccount(IUser user, string stripeId)
         {
-            var config = DiscordFunctions.GetConfig();
-            var connectionStr = config["db_connection"].ToString();
+            var connectionStr = _config["db_connection"].Value<string>();
 
             using var conn = new MySqlConnection(connectionStr);
 

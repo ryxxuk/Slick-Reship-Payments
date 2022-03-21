@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Discord;
-using Discord.Commands;
-using Discord.WebSocket;
+using Newtonsoft.Json.Linq;
 using Stripe;
 using Stripe.Checkout;
 
 namespace SlickReship_Payments.Functions
 {
-    internal class Stripe
+    public static class Stripe
     {
+        public static JObject _config;
+
         static Stripe()
         {
-            var config = DiscordFunctions.GetConfig();
-            var privKey = config["stripe_private_key"].ToString();
+            var privKey = _config["stripe_private_key"].Value<string>().ToString();
 
             StripeConfiguration.ApiKey = privKey;
         }
         
-        public static async Task<Session> CreateChargeSessionAsync(string note, double price, string destinationStripeId, double commission)
+        public static async Task<Session> CreateChargeSessionAsync(string note, double price, string destinationStripeId, double applicationFee)
         {
             var capabilityService = new CapabilityService();
+
             var capability = await capabilityService.GetAsync(destinationStripeId, "card_payments");
 
-            var applicationFeeInPence = Convert.ToInt64(commission * 100);
+            var applicationFeeInPence = Convert.ToInt64(applicationFee * 100);
 
             var priceInPence = Convert.ToInt64(price * 100);
 
