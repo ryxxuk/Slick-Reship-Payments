@@ -7,6 +7,7 @@ using Discord;
 using Discord.WebSocket;
 using Newtonsoft.Json.Linq;
 using SlickReship_Payments.Functions;
+using Embed = Discord.Embed;
 
 namespace SlickReship_Payments.Modules
 {
@@ -17,22 +18,26 @@ namespace SlickReship_Payments.Modules
 
         public static async Task Charge(SocketSlashCommand command)
         {
-            IUser reshipper = null;
-            IUser customer = null;
+            var client = await _client.Rest.GetGuildUserAsync(893087963582464030, command.User.Id);
+            if (!client.RoleIds.Contains<ulong>(894629272172507166) && !client.RoleIds.Contains<ulong>(895710007973249055))
+            {
+                await command.RespondAsync("You haven't got permission for this!", ephemeral: true);
+            }
+
+            IGuildUser reshipper = null;
+            IGuildUser customer = null;
             var deliveryCost = false;
             double amount = 0;
 
-            var channel = (IMessageChannel)_client.Rest.GetChannelAsync(command.Channel.Id);
-
-            foreach (var x in command.Data.Options.FirstOrDefault()?.Options)
+            foreach (var x in command.Data.Options)
             {
                 switch (x.Name)
                 {
                     case "customer":
-                        customer = (IUser) x.Value;
+                        customer = (IGuildUser) x.Value;
                         break;
                     case "reshipper":
-                        reshipper = (IUser) x.Value;
+                        reshipper = (IGuildUser) x.Value;
                         break;
                     case "amount":
                         amount = (double) x.Value;
@@ -43,24 +48,20 @@ namespace SlickReship_Payments.Modules
                 }
             }
 
-            var restCustomer = await _client.Rest.GetGuildUserAsync(_config["guild_id"].Value<ulong>(), customer.Id);
-
             var stripeId = Database.GetStripeId(reshipper.Id);
 
             if (stripeId == "")
             {
-                await channel.SendMessageAsync($"<@{reshipper.Id}> does not have an associated Stripe account. Use /addstripe to add their account.");
+                await command.RespondAsync($"<@{reshipper.Id}> does not have an associated Stripe account. Use /addstripe to add their account.");
                 return;
             }
             
-            var tempMessage = await channel.SendMessageAsync("Generating Payment Session...");
-
             var transactionFee = amount / (1 - _config["stripe_percent_fee"].Value<double>()) - amount;
-            transactionFee = Math.Round(transactionFee, 2) + 0;
-            var applicationFee = restCustomer.RoleIds.Any(role => role == 896053430341222420) || deliveryCost ? transactionFee : amount * _config["non_premium_commission"].Value<double>() + transactionFee;
-            
-            var totalCost = amount + transactionFee;
+            transactionFee = Math.Round(transactionFee + 0.2, 2) ;
 
+            var totalCost = Math.Round(amount + transactionFee, 2);
+
+            var applicationFee = customer.RoleIds.Any(role => role == 896053430341222420) || deliveryCost ? transactionFee : amount * _config["non_premium_commission"].Value<double>() + transactionFee;
             var stripeSession = await Functions.Stripe.CreateChargeSessionAsync(
                 $"Reshipping Fee: £{amount}. Trans Fee: £{transactionFee}",
                 totalCost,
@@ -69,19 +70,24 @@ namespace SlickReship_Payments.Modules
 
             var embed = EmbedTemplates.CreatePaymentEmbed(amount, transactionFee, stripeSession.Id);
 
-            await channel.SendMessageAsync("", embed: embed);
-            await tempMessage.DeleteAsync();
+            await command.RespondAsync("", embed: embed);
 
             Console.WriteLine($"Created new payment link for {stripeId}, total cost:{totalCost}, fee:{applicationFee}");
         }
 
         public static async Task Check(SocketSlashCommand command)
         {
+            var client = await _client.Rest.GetGuildUserAsync(893087963582464030, command.User.Id);
+            if (!client.RoleIds.Contains<ulong>(894629272172507166) && !client.RoleIds.Contains<ulong>(895710007973249055))
+            {
+                await command.RespondAsync("You haven't got permission for this!", ephemeral: true);
+            }
+
             var numberChecked = 0;
 
-            var channel = (IMessageChannel) _client.Rest.GetChannelAsync(command.Channel.Id);
+            var messages = command.Channel.GetMessagesAsync().Flatten();
 
-            var messages = channel.GetMessagesAsync().Flatten();
+            var embeds = new List<Embed>();
 
             await foreach (var message in messages)
             {
@@ -94,9 +100,8 @@ namespace SlickReship_Payments.Modules
 
                 var paid = await Functions.Stripe.CheckIfPaid(stripeSessionId);
 
-                var embed = EmbedTemplates.CreatePaymentCheckEmbed(paid, stripeSessionId);
+                embeds.Add(EmbedTemplates.CreatePaymentCheckEmbed(paid, stripeSessionId));
 
-                await channel.SendMessageAsync("", embed: embed);
 
                 if (paid)
                 {
@@ -108,18 +113,28 @@ namespace SlickReship_Payments.Modules
 
             if (numberChecked == 0)
             {
-                await channel.SendMessageAsync("I couldn't find any payment sessions in this chat!");
-                return;
+                await command.RespondAsync("I couldn't find any payment sessions in this chat!");
+            }
+            else
+            {
+                await command.RespondAsync("", embeds: embeds.ToArray());
             }
 
         }
 
         public static async Task AddStripe(SocketSlashCommand command)
         {
+            var client = await _client.Rest.GetGuildUserAsync(893087963582464030, command.User.Id);
+            if (!client.RoleIds.Contains<ulong>(894629272172507166) && !client.RoleIds.Contains<ulong>(895710007973249055))
+            {
+                await command.RespondAsync("You haven't got permission for this!", ephemeral: true);
+            }
+
+            await command.RespondAsync("Command Executed", ephemeral:true);
             IUser user = null;
             var stripeId = "";
 
-            foreach (var x in command.Data.Options.FirstOrDefault()?.Options)
+            foreach (var x in command.Data.Options)
             {
                 switch (x.Name)
                 {

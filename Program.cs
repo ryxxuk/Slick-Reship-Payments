@@ -30,6 +30,11 @@ namespace SlickReship_Payments
 
         private Program()
         {
+            _config = DiscordFunctions.GetConfig();
+            SlashCommands._config = _config;
+            Database._config = _config;
+            Functions.Stripe._config = _config;
+
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Info,
@@ -45,8 +50,6 @@ namespace SlickReship_Payments
 
             _client.Log += Log;
             _commands.Log += Log;
-
-            _config = DiscordFunctions.GetConfig();
         }
 
         private static Task Log(LogMessage message)
@@ -84,9 +87,6 @@ namespace SlickReship_Payments
             await _client.StartAsync();
 
             SlashCommands._client = _client;
-            SlashCommands._config = _config;
-            Database._config = _config;
-            Functions.Stripe._config = _config;
 
             await Task.Delay(Timeout.Infinite);
         }
@@ -126,7 +126,7 @@ namespace SlickReship_Payments
                     .WithName("charge")
                     .WithDescription("Create a charge link for a customer")
                     .AddOption("customer", ApplicationCommandOptionType.User, "The customer you want to charge", isRequired: true)
-                    .AddOption("customer", ApplicationCommandOptionType.User, "The reshipper who has the parcels", isRequired: true)
+                    .AddOption("reshipper", ApplicationCommandOptionType.User, "The reshipper who has the parcels", isRequired: true)
                     .AddOption("amount", ApplicationCommandOptionType.Number, "The amount to charge the customer", isRequired: true)
                     .AddOption("deliverycost", ApplicationCommandOptionType.Boolean, "Is the cost a delivery cost?, default false.", isRequired: false),
                 new SlashCommandBuilder()

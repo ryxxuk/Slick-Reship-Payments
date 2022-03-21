@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Stripe;
@@ -13,8 +14,8 @@ namespace SlickReship_Payments.Functions
 
         static Stripe()
         {
-            var privKey = _config["stripe_private_key"].Value<string>().ToString();
-
+            _config = DiscordFunctions.GetConfig();
+            var privKey = _config["stripe_private_key"].Value<string>();
             StripeConfiguration.ApiKey = privKey;
         }
         
