@@ -24,6 +24,8 @@ namespace SlickReship_Payments.Modules
                 await command.RespondAsync("You haven't got permission for this!", ephemeral: true);
             }
 
+            await command.DeferAsync(false);
+
             IGuildUser reshipper = null;
             IGuildUser customer = null;
             var deliveryCost = false;
@@ -52,7 +54,7 @@ namespace SlickReship_Payments.Modules
 
             if (stripeId == "")
             {
-                await command.RespondAsync($"<@{reshipper.Id}> does not have an associated Stripe account. Use /addstripe to add their account.");
+                await command.ModifyOriginalResponseAsync(msg => msg.Content = $"<@{reshipper.Id}> does not have an associated Stripe account. Use /addstripe to add their account.");
                 return;
             }
             
@@ -70,7 +72,11 @@ namespace SlickReship_Payments.Modules
 
             var embed = EmbedTemplates.CreatePaymentEmbed(amount, transactionFee, stripeSession.Id);
 
-            await command.RespondAsync("", embed: embed);
+            await command.ModifyOriginalResponseAsync(msg =>
+            {
+                msg.Embed = embed;
+                msg.Content = "";
+            });
 
             Console.WriteLine($"Created new payment link for {stripeId}, total cost:{totalCost}, fee:{applicationFee}");
         }
@@ -82,6 +88,8 @@ namespace SlickReship_Payments.Modules
             {
                 await command.RespondAsync("You haven't got permission for this!", ephemeral: true);
             }
+
+            await command.DeferAsync(false);
 
             var numberChecked = 0;
 
@@ -113,11 +121,15 @@ namespace SlickReship_Payments.Modules
 
             if (numberChecked == 0)
             {
-                await command.RespondAsync("I couldn't find any payment sessions in this chat!");
+                await command.ModifyOriginalResponseAsync(msg => msg.Content = "I couldn't find any payment sessions in this chat!");
             }
             else
             {
-                await command.RespondAsync("", embeds: embeds.ToArray());
+                await command.ModifyOriginalResponseAsync(msg =>
+                {
+                    msg.Content = "";
+                    msg.Embeds = embeds.ToArray();
+                });
             }
 
         }
@@ -130,7 +142,6 @@ namespace SlickReship_Payments.Modules
                 await command.RespondAsync("You haven't got permission for this!", ephemeral: true);
             }
 
-            await command.RespondAsync("Command Executed", ephemeral:true);
             IUser user = null;
             var stripeId = "";
 
@@ -148,9 +159,8 @@ namespace SlickReship_Payments.Modules
             }
 
             var successful = Database.AddStripeAccount(user, stripeId);
-            var channel = (IMessageChannel) _client.Rest.GetChannelAsync(command.Channel.Id);
 
-            await channel.SendMessageAsync(successful
+            await command.RespondAsync(successful
                 ? $":white_check_mark: Successfully added <@{user.Id}> to the Stripe database!"
                 : $":x: Could not add <@{user.Id}> to the Stripe database!");
         }
